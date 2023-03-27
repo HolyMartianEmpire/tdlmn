@@ -91,7 +91,10 @@ module DownloadTile
             if o[:md5] != buf_md5
               $logger.error("MD5エラー : #{o[:url]}")
               $status[:ng] += 1
-            else
+			else
+			  $status[:ok] += 1
+			end
+#            else
               [File.dirname(o[:local_path])].each{|it|
                 FileUtils.mkdir_p(it) unless File.directory?(it)
               }
@@ -101,7 +104,7 @@ module DownloadTile
               File.utime(o[:date], o[:date], o[:local_path])
 
               $status[:ok] += 1
-            end
+#            end
           end
         end
       end
